@@ -10,6 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.ServletException;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.SignatureAlgorithm;
+
+import java.util.Date;
+
 /**
  * @author Santiago Carrillo
  * 8/21/17.
@@ -51,8 +58,8 @@ public class UserController
             throw new ServletException( "Invalid login. Please check your name and password." );
         }
 
-//        jwtToken = Jwts.builder().setSubject( username ).claim( "roles", "user" ).setIssuedAt( new Date() ).signWith(
-//            SignatureAlgorithm.HS256, "secretkey" ).compact();
+        jwtToken = Jwts.builder().setSubject( username ).claim( "roles", "user" ).setIssuedAt( new Date() ).signWith(
+            SignatureAlgorithm.HS256, "secretkey" ).compact();
 
         return new Token( jwtToken );
     }
